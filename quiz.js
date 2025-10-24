@@ -1,34 +1,37 @@
-function checkAnswer () {
+// Wait for the DOM to load
+document.addEventListener("DOMContentLoaded", function() {
 
-    // Identification of the correct answer
-    const correctAnswer = "4";
+    // Function to check the user's answer
+    function checkAnswer() {
+        // Correct answer
+        const correctAnswer = "4";
 
-    // Retrieval of the user selected answer
-    const selectedOption = document.querySelector('input[name="quiz"]:checked');
+        // Retrieve the selected answer
+        const selectedOption = document.querySelector('input[name="quiz"]:checked');
 
-    // Accessing the Feedback element
-    const feedback = document.getElementById("feedback");
+        // Access the feedback element
+        const feedback = document.getElementById("feedback");
 
-    // Checking if the user selected an answer
-    if(!selectedOption){
-        feedback.textContent = "Please select an answer before submitting.";
-        feedback.style.color = "#dc3545";
-        return;
+        // If no answer is selected
+        if (!selectedOption) {
+            feedback.textContent = "Please select an answer before submitting.";
+            feedback.style.color = "#dc3545";
+            return;
+        }
+
+        const userAnswer = selectedOption.value;
+
+        // Compare user's answer with the correct answer
+        if (userAnswer === correctAnswer) {
+            feedback.textContent = "Correct! Well Done.";
+            feedback.style.color = "#28a745";
+        } else {
+            feedback.textContent = "That's incorrect. Try Again!";
+            feedback.style.color = "#dc3545";
+        }
     }
 
-    const userAnswer = selectedOption.value;
-
-    // Comparison of the user answer with the correct answer
-    if(userAnswer===correctAnswer){
-        feedback.textContent = "Correct! Well Done.";
-        feedback.style.color = "#28a745";
-    } else{
-        feedback.textContent ="That's incorrect. Try Again!"
-        feedback.style.color = "#dc3545"
-    }
-
-    // Addition of an Event Listener that works with the submit button
+    // Add event listener to the button **outside** the function
     const submitButton = document.getElementById("submit-answer");
     submitButton.addEventListener("click", checkAnswer);
-
-}
+});
